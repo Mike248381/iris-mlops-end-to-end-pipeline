@@ -1,0 +1,38 @@
+name: CI - Train and Save the Model
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  name: Train and Save the Model
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip setuptools wheel
+
+    - name: Install project dependencies
+      run: python -m pip install -r requirements.txt
+
+    - name: Train the Model
+      run: |
+         python retrain_iris_model.python
+         ls -ltr
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ml_artifacts-${{ github.run_id }}
+        path: .
+         
