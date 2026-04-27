@@ -28,7 +28,7 @@ jobs:
 
       - name: Train the Model
         run: |
-          python retrain_iris_model.python
+          python retrain_iris_model.py
           ls -ltr
 
       - name: Upload artifacts
