@@ -1,4 +1,4 @@
-# Basic End-to-End Demo Pipeline for Retraining Model and Running Final Prediction Model
+# Basic End-to-end MLOps pipeline using the Iris dataset: retraining, model versioning, CLI predictions, Flask API deployment, Docker, and CI/CD
 ## - By Michael Acheampong, PhD
 
 This repository is designed as a **teaching project for students learning end-to-end machine learning (MLOps)**. It walks through the full lifecycle of a model:
