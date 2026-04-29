@@ -1,5 +1,5 @@
 # Basic End-to-End Demo Pipeline for Retraining Model and Running Final Prediction Model
-## - By Michael Acheampong
+## - By Michael Acheampong, PhD
 
 This repository is designed as a **teaching project for students learning end-to-end machine learning (MLOps)**. It walks through the full lifecycle of a model:
 
