@@ -3,7 +3,7 @@
 
 This repository is designed as a **teaching project for students learning end-to-end machine learning (MLOps)**. It walks through the full lifecycle of a model:
 
-* Retraining an existing model with new data
+* Retraining an existing TENSORFLOW model with new data
 * Archiving old model versions
 * Running predictions locally
 * Serving predictions via an API
@@ -19,7 +19,7 @@ The project uses the classic Iris dataset to keep concepts simple while demonstr
 ```
 .
 ├── app.py                  # Flask API for serving predictions
-├── final_iris_model.keras  # Current production model
+├── final_iris_model.keras  # Current Tensorflow production model
 ├── final_iris_model.py     # CLI prediction script
 ├── iris_scaler.pkl         # Feature scaler
 ├── retrain_iris_model.py   # Retraining + model versioning
