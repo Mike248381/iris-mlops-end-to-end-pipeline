@@ -1,16 +1,19 @@
-# Basic End-to-end MLOps pipeline using the Iris dataset: retraining, model versioning, CLI predictions, Flask API deployment, Docker, and CI/CD
-## - By Michael Acheampong, PhD
+# End-to-End MLOps Pipeline: Retraining, Versioning, and Model Serving (Iris Dataset)
 
-This repository is designed as a **teaching project for students learning end-to-end machine learning (MLOps)**. It walks through the full lifecycle of a model:
+### Michael Acheampong, PhD
 
-* Retraining an existing TENSORFLOW model with new data
-* Archiving old model versions
-* Running predictions locally
-* Serving predictions via an API
+This repository is a **teaching-focused, end-to-end MLOps project** designed to help students understand how machine learning systems move from training to deployment.
+
+It demonstrates a complete workflow using a TensorFlow model, including:
+
+* Retraining an existing model with new data
+* Archiving and versioning previous model artifacts
+* Running predictions via a command-line interface
+* Serving predictions through a Flask API
 * Containerizing the application with Docker
-* Automating retraining with CI
+* Automating retraining with CI/CD pipelines
 
-The project uses the classic Iris dataset to keep concepts simple while demonstrating real-world workflows.
+While the dataset (Iris) is simple, the **engineering workflow reflects real-world ML systems**.
 
 ---
 
@@ -19,7 +22,7 @@ The project uses the classic Iris dataset to keep concepts simple while demonstr
 ```
 .
 ├── app.py                  # Flask API for serving predictions
-├── final_iris_model.keras  # Current Tensorflow production model
+├── final_iris_model.keras  # Current TensorFlow production model
 ├── final_iris_model.py     # CLI prediction script
 ├── iris_scaler.pkl         # Feature scaler
 ├── retrain_iris_model.py   # Retraining + model versioning
@@ -33,14 +36,14 @@ The project uses the classic Iris dataset to keep concepts simple while demonstr
 
 ## 🎯 Learning Objectives
 
-By working through this repo, students will learn how to:
+By working through this repository, students will learn how to:
 
-* Retrain a machine learning model using new data
-* Version and archive models
-* Run predictions from a trained model
-* Deploy a model behind an API
-* Containerize ML applications using Docker
-* Automate workflows using CI/CD
+* Retrain and update an existing machine learning model
+* Implement basic model versioning and artifact management
+* Perform inference via CLI and API interfaces
+* Deploy a model using Flask
+* Containerize applications with Docker
+* Automate ML workflows using CI/CD
 
 ---
 
@@ -51,8 +54,8 @@ This step simulates updating a production model with new data.
 ### What happens:
 
 * The current model (`final_iris_model.keras`) is **archived with a timestamp**
-* The model is **retrained on the dataset**
-* A **new updated model** is saved with the original name
+* The archived model is **reloaded and retrained**
+* A **new production model** is saved using the original filename
 
 ### Run:
 
@@ -66,13 +69,13 @@ python retrain_iris_model.py
 Archived old model as: final_iris_model_20260429.keras
 ```
 
-📌 This ensures **model history is preserved**, which is critical in real-world ML systems.
+📌 This demonstrates a simple but important concept: **never overwrite models without keeping history**.
 
 ---
 
 ## 🔮 Part 2: Run Predictions Locally
 
-You can test the trained model directly from the command line.
+Run inference directly from the command line using the trained model.
 
 ### Input format:
 
@@ -105,9 +108,9 @@ Prediction: virginica
 
 ---
 
-## 🌐 Part 3: Serve the Model with Flask API
+## 🌐 Part 3: Serve the Model with a Flask API
 
-The model is exposed via a simple Flask application.
+The trained model is exposed through a lightweight REST API.
 
 ### Start the server:
 
@@ -139,7 +142,7 @@ curl -X POST "http://127.0.0.1:5001/api/flower" \
 
 ## 🐳 Part 4: Dockerize the Application
 
-A simple multi-stage Dockerfile is included to package the Flask API.
+A multi-stage Dockerfile is included to package the Flask API for deployment.
 
 ### Build the image:
 
@@ -153,7 +156,7 @@ docker build -t iris-ml-app .
 docker run -p 5001:5001 iris-ml-app
 ```
 
-Now access the API at:
+Access the API at:
 
 ```
 http://localhost:5001/api/flower
@@ -173,20 +176,18 @@ The repository includes a GitHub Actions workflow:
 
 * Installs dependencies
 * Retrains the model
-* Uploads all artifacts (model, scaler, etc.)
+* Uploads model artifacts
 
 ### Triggered on:
 
 * Push to `main`
 * Pull requests to `main`
 
-This demonstrates how **ML training can be automated in CI pipelines**.
+This demonstrates how **model retraining can be automated in a CI pipeline**.
 
 ---
 
 ## 🚀 Quick Start for Students
-
-Follow these steps to go through the full pipeline:
 
 ### 1. Setup environment
 
@@ -209,7 +210,7 @@ python retrain_iris_model.py
 
 ---
 
-### 3. Run a local prediction
+### 3. Run a prediction
 
 ```bash
 python final_iris_model.py --input_json '{"sepal_length":6,"sepal_width":3,"petal_length":5,"petal_width":2}'
@@ -247,20 +248,19 @@ docker run -p 5001:5001 iris-ml-app
 ## 🧠 Key Concepts Demonstrated
 
 * Model retraining and lifecycle management
-* Model versioning (archiving old models)
-* Feature preprocessing with scalers
-* CLI-based inference
+* Model versioning via artifact archiving
+* Feature preprocessing consistency
+* CLI-based inference workflows
 * REST API deployment with Flask
-* Containerization with Docker
-* CI/CD for ML workflows
+* Containerization using Docker
+* CI/CD for machine learning pipelines
 
 ---
 
 ## 📌 Notes for Students
 
-* Always version your models before retraining
-* Keep preprocessing (like scalers) consistent
-* Test locally before deploying
-* Automate repetitive tasks (CI/CD)
-* Think of ML as a **pipeline**, not just a notebook
-
+* Always version models before retraining
+* Keep preprocessing steps consistent between training and inference
+* Validate locally before deploying
+* Automate repeatable workflows
+* Treat machine learning as a **system**, not just a model
